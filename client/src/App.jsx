@@ -1,10 +1,10 @@
 
-import React from "react"
+import React from "react";
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import CourseContent from './components/CourseContent.jsx'
-import courseData from './tests/test.js'
-import _ from "lodash"
+import CourseContent from './components/CourseContent.jsx';
+import courseData from './tests/test.js';
+import _ from "lodash";
 
 
 
@@ -20,15 +20,15 @@ class App extends React.Component {
       expanded: false,
       lectureCount: 0
 
-    }
-    this.updateCourseItemStates = this.updateCourseItemStates.bind(this)
-    this.expandClickHandler = this.expandClickHandler.bind(this)
+    };
+    this.updateCourseItemStates = this.updateCourseItemStates.bind(this);
+    this.expandClickHandler = this.expandClickHandler.bind(this);
 
 
-  // this.state.lectureCount = currLectureCount
-  this.setTime()
-  this.setMinutes()
-  console.log("Fire", this.state.totalLectureCount, this.state.lectureCount)
+    // this.state.lectureCount = currLectureCount
+    this.setTime();
+    this.setMinutes();
+    console.log("Fire", this.state.totalLectureCount, this.state.lectureCount);
   }
 
   setTime() {
@@ -36,58 +36,54 @@ class App extends React.Component {
     this.state.lectureCount = _.reduce(this.state.courseData,
       (accum, curr) => {
         // console.log(curr.entries.length, accum)
-        return accum + curr.entries.length
-
-    },0)
+        return accum + curr.entries.length;
+      },0);
 
     this.state.totalLectureDuration =
     _.reduce(this.state.courseData, (accum, curr) =>
-      (accum +
-        _.reduce(curr.entries, (a,c) => (a + c.duration),0))
-      ,0)
+      (accum + _.reduce(curr.entries, (a,c) => (a + c.duration),0))
+    ,0);
   }
 
- setMinutes() {
-    let minutes = this.state.totalLectureDuration
-    let hours = Math.floor(minutes/60)
-    minutes = minutes - hours*60
-    console.log(minutes)
+  setMinutes() {
+    let minutes = this.state.totalLectureDuration;
+    let hours = Math.floor(minutes/60);
+    minutes = minutes - hours*60;
+    console.log(minutes);
     this.state.minutes = minutes < 10 ? "0"+minutes : "" + minutes;
     this.state.hours=  hours < 10 ? "0"+hours : "" + hours;
-
-
   }
 
 
 
-componentDidMount(){
-  let currLectureCount = _.reduce(this.state.courseData,
+  componentDidMount(){
+    let currLectureCount = _.reduce(this.state.courseData,
       (accum, curr) => {
         // console.log(curr.entries.length, accum)
-        return accum + curr.entries.length
+        return accum + curr.entries.length;
+      },0);
 
-    },0)
-
-  this.setState({lectureCount: currLectureCount})
-}
+    this.setState({lectureCount: currLectureCount});
+  }
 
   updateCourseItemStates(setState) {
-    this.state.courseItemSetStates.push(setState)
+    this.state.courseItemSetStates.push(setState);
   }
   expandClickHandler() {
-    let setStates = this.state.courseItemSetStates
+    let setStates = this.state.courseItemSetStates;
     
     for(let stateSetter of setStates){
       stateSetter((prevState, props)=>{
-       return {"hidden": !this.state.expanded} })
-  }
+        return {"hidden": !this.state.expanded};
+      });
+    }
     this.setState((prevState, props)=>{
-    return {"expanded": !prevState.expanded} })
-
-}
+      return {"expanded": !prevState.expanded};
+    });  
+  }
 
   componentDidMount(){
-    console.log
+    console.log;
   }
 
   // fetchBlogPosts() {
@@ -104,16 +100,16 @@ componentDidMount(){
           <span className = "header-title"> Course Content </span>
           <span className = "expand" onClick = {this.expandClickHandler}> {this.state.expanded? "Collapse All" : "Expand All"} </span>
           <span className = "total-lecture-length">
-          {this.state.lectureCount} lectures </span>
+            {this.state.lectureCount} lectures </span>
           <span className = "total-lecture-duration">
-          {this.state.hours + ":" + this.state.minutes}</span>
+            {this.state.hours + ":" + this.state.minutes}</span>
         </div>
         <div className= "course-content-container">
-            <CourseContent updateCourseItemStates = {this.updateCourseItemStates} courseData = {this.state.courseData}/>
+          <CourseContent updateCourseItemStates = {this.updateCourseItemStates} courseData = {this.state.courseData}/>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

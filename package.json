@@ -1,4 +1,5 @@
 {
+  "homepage": "http://mobin0.github.io/Course-Content-Service-Udeyou",
   "name": "course-content-server-mobin0",
   "version": "1.0.0",
   "description": "Provides a service to access course items from the databse",
@@ -10,9 +11,12 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "seed": "node db/createDB.js",
     "test:client": "jest --watchAll --expand --verbose",
-    "test:coverage": "jest --verbose --coverage"
+    "test:coverage": "jest --verbose --coverage",
+    "build": "react-app-rewired build"
   },
   "jest": {
     "roots": [

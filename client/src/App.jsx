@@ -3,7 +3,7 @@ import React from "react"
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import CourseContent from './components/CourseContent.jsx'
-import courseData from './../../db/test.js'
+import courseData from './tests/test.js'
 import _ from "lodash"
 
 
